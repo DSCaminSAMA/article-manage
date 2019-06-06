@@ -5,12 +5,64 @@
   Time: 21:19
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    Date date = new Date();
+    String nowDate = sdf.format(date);
+%>
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="<%=basePath%>/static/layui/css/layui.css"/>
+    <link rel="stylesheet" href="<%=basePath%>/static/css/bootstrap.min.css"/>
 </head>
 <body>
+<div class="container">
+    <!-- 文章信息的表单 -->
+    <div class="layui-form">
+        <form>
+            <div class="layui-inline" style="margin-left: -10px;">
+                <label class="layui-form-label" style="padding-left: 0;"><strong>文章编号</strong></label>
+                <div class="layui-input-inline" style="margin-left: -502px;">
+                    <input name="r_id" id="r_id" class="layui-input" value="" readonly="readonly"/>
+                </div>
+                <label class="layui-form-label" style="margin-left: 157px;width:90px;"><strong>文章作者</strong></label>
+                <div class="layui-input-inline" style="margin-left:87px;">
+                    <input type="text" name="r_author" id="r_author" value="" class="layui-input"/>
+                </div>
+                <label class="layui-form-label" style="margin-left:169px;padding-left: 0;"><strong>发布日期</strong></label>
+                <div class="layui-input-inline" style="margin-left: 88px;">
+                    <input type="text" name="date" id="r_date" value="" class="layui-input"/>
+                </div>
+            </div>
+            <hr style="margin-top: 0;"/>
+            <div class="layui-inline" style="margin-left: -10px;padding-left: 0;">
+                <label class="layui-form-label" style="padding-left: 0;"><strong>文章简介</strong></label>
+                <div class="layui-input-inline" style="margin-left: -6px;width: 275px;">
+                    <input type="text" name="r_summary" id="r_summary" value="" class="layui-input"/>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <label><strong>文章内容</strong></label>
+            <!-- 加载Markdown富文本容器 -->
+            <div id="content" class="form-control"></div>
+            <div class="layui-inline" style="margin-top: 20px;">
+                <button type="button" id="verifyBtn" class="layui-btn">存入草稿箱</button>
+                <button type="button" id="publishBtn" class="layui-btn">发布</button>
+                <button type="button" id="cleanBtn" class="layui-btn">清空</button>
+            </div>
+        </form>
+    </div>
+
+</div>
 
 </body>
 </html>
