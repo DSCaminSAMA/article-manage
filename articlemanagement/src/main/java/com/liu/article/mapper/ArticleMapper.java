@@ -6,6 +6,7 @@ import com.liu.article.pojo.Words;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ArticleMapper {
 
@@ -15,7 +16,7 @@ public interface ArticleMapper {
 
     List<Article> findByPage(HashMap<String,Object> map);
 
-    List<Article> findConByPage(HashMap<String,Object> conMap);
+    List<Article> findConByPage(Map<String,Object> conMap);
 
     void delete(int r_id);
 
