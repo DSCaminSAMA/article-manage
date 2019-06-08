@@ -72,7 +72,7 @@
         </div>
         <hr style="color: #484848;text-align:center;"/>
         <!--登录的表单-->
-        <form action="<%=basePath%>/admin/index.do" id="loginform" method="post" class="layui-form" style="text-align: center;margin-right:12%;margin-top:10%;">
+        <form action="<%=basePath%>/admin/login.do" id="loginform" method="post" class="layui-form" style="text-align: center;margin-right:12%;margin-top:10%;">
             <input name="a_id" hidden="hidden" value="${a_id}"/>
             <div>
                 <div class="layui-form-item layui-inline" style="width:110%">
@@ -159,13 +159,13 @@
         $("#loginform").show();
     });
     function checkName() {
-        var a_name = $("#a_name").val;
+        var a_name = $("#a_name").val();
         if (a_name != ''){
             $.ajax({
                 url:'<%=basePath%>/admin/findByName.do',
                 type:'post',
                 dataType:'json',
-                contentType:'application/json;charset=urf-8',
+                contentType:'application/json;charset=utf-8',
                 data:JSON.stringify({"a_name":a_name}),
                 success:function (data) {
                     if (data == null){
@@ -196,7 +196,7 @@
         //默认code为空字符串
         code = '';
 
-        var codeLength = 6;
+        var codeLength = 4;
         var codeV = document.getElementById('code');
         //设置随机字符
         var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R', 'S','T','U','V','W','X','Y','Z');

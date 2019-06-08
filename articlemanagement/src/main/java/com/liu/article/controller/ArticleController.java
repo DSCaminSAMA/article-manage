@@ -47,8 +47,8 @@ public class ArticleController {
         return "redirect:findByPage.do";
     }
 
-    @RequestMapping(value = "/saveArtcile")
-    public String saveArtcile(Article article, Model model){
+    @RequestMapping(value = "/saveArticle")
+    public String saveArticle(Article article, Model model){
         try {
             articleService.saveArticle(article);
             model.addAttribute("message","文章添加成功");
@@ -67,7 +67,7 @@ public class ArticleController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "findByPage")
+    @RequestMapping(value = "/findByPage")
     public String findByPage(@RequestParam(value = "pageCode", defaultValue = "1", required = false) int pageCode,
                              @RequestParam(value = "pageSize", defaultValue = "3", required = false) int pageSize,
                              HttpServletRequest request,
@@ -131,8 +131,8 @@ public class ArticleController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "toEditPage")
-    public String toEditPage(@RequestParam int r_id,Model model){
+    @RequestMapping(value = "/toEditPage")
+    public String editPage(@RequestParam int r_id,Model model){
         //先查询
         Article article = articleService.findById(r_id);
         if (article != null){
@@ -160,7 +160,7 @@ public class ArticleController {
     @RequestMapping(value = "/restore")
     public String restore(@RequestParam int r_id){
         articleService.restore(r_id);
-        return "redirect:/findByPage.do";
+        return "redirect:findByPage.do";
     }
 
     /**

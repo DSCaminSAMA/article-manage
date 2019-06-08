@@ -73,4 +73,111 @@
     <br/>
 </div>
 </body>
+<!-- JQuery的配置 -->
+<script src="<%=basePath%>/static/js/jquery-3.3.1.min.js"></script>
+<!-- 加载Layui的配置 -->
+<script src="<%=basePath%>/static/layui/layui.all.js"></script>
+<!-- Markdown富文本 -->
+<script src="<%=basePath%>/static/editormd/editormd.min.js"></script>
+<script type="text/javascript">
+     layui.use('element',function () {
+         var element = layui.element;
+     });
+     layui.use('laydate',function () {
+         var laydate = layui.laydate;
+         laydate.render({
+             elem:'#r_date'
+         })
+     })
+</script>
+<script type="text/javascript">
+    var markdown;
+    $(function(){
+        markdown=editormd("editormd",{
+            width: '100%',
+            height: '80%',
+            syncScrolling: 'single',
+            path: '<%=basePath%>/static/editormd/lib/',
+            saveHTMLToTextarea: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    //如果点击了按钮发布
+    $("#publishBtn").click(function () {
+        var r_id = $("#r_id").val();
+        var r_author = $("#r_author").val();
+        var r_summary = $("#r_summary").val();
+        var r_content = markdown.getMarkdown();
+        var r_date = $("#r_date").val();
+        var r_verify = 1;
+        var r_publish = 1;
+        var r_status = 0;
+        $.ajax({
+            url:'<%=basePath%>/article/saveArticle.do',
+            type:'POST',
+            data:{
+                r_id:r_id,
+                r_author:r_author,
+                r_summary:r_summary,
+                r_content:r_content,
+                r_date:r_date,
+                r_verify:r_verify,
+                r_publish:r_publish,
+                r_status:r_status
+            },
+            success:function (data) {
+                $("body").html(data)
+            },
+            error:function () {
+                alert("错误")
+            }
+        });
+    });
+
+    //如果点击了存入草稿箱
+    $("#verifyBtn").click(function () {
+        var r_id = $("#r_id").val();
+        var r_author = $("#r_author").val();
+        var r_summary = $("#r_summary").val();
+        var r_content = markdown.getMarkdown();
+        var r_date = $("#r_date").val();
+        var r_verify = 0;
+        var r_publish = 0;
+        var r_status = 0;
+        $.ajax({
+            url:'<%=basePath%>/article/saveArticle.do',
+            type:'POST',
+            data:{
+                r_id:r_id,
+                r_author:r_author,
+                r_summary:r_summary,
+                r_content:r_content,
+                r_date:r_date,
+                r_verify:r_verify,
+                r_publish:r_publish,
+                r_status:r_status
+            },
+            success:function (data) {
+                $("body").html(data)
+            },
+            error:function () {
+                alert("错误")
+            }
+        });
+    });
+
+    //清空
+    $("#cleanBtn").click(function () {
+        layer.open({
+            title:'警告信息',
+            content:'你确定要清空文章内容',
+            btn:['确定','取消'],
+            btn1:function (index,layero) {
+                ue.execCommand('cleardoc');
+                layer.close(index)
+            }
+        });
+    });
+</script>
 </html>

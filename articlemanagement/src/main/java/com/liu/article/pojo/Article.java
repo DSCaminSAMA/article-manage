@@ -17,7 +17,7 @@ public class Article implements Serializable {
     private String r_content;
 
     //文章创建日期
-    private String r_data;
+    private String r_date;
 
     //文章审核--0.未审核---1.已审核
     private int r_verify;
@@ -60,12 +60,12 @@ public class Article implements Serializable {
         this.r_content = r_content;
     }
 
-    public String getR_data() {
-        return r_data;
+    public String getR_date() {
+        return r_date;
     }
 
-    public void setR_data(String r_data) {
-        this.r_data = r_data;
+    public void setR_date(String r_date) {
+        this.r_date = r_date;
     }
 
     public int getR_verify() {

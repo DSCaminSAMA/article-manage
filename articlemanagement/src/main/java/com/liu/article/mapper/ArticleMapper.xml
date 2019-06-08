@@ -4,7 +4,7 @@
 
 <mapper namespace="com.liu.article.mapper.ArticleMapper">
 
-    <resultMap id="BaseMap" type="cn.tycoding.pojo.Article">
+    <resultMap id="BaseMap" type="com.liu.article.pojo.Article">
         <id property="r_id" column="r_id" jdbcType="INTEGER"/>
         <result property="r_author" column="r_author" jdbcType="VARCHAR"/>
         <result property="r_summary" column="r_summary" jdbcType="VARCHAR"/>
@@ -15,7 +15,7 @@
         <result property="r_status" column="r_status" jdbcType="INTEGER"/>
     </resultMap>
 
-    <resultMap id="WordsBaseMap" type="cn.tycoding.pojo.Words">
+    <resultMap id="WordsBaseMap" type="com.liu.article.pojo.Words">
         <id column="lw_id" property="lw_id" jdbcType="INTEGER"/>
         <result column="lw_name" property="lw_name" jdbcType="VARCHAR"/>
         <result column="lw_date" property="lw_date" jdbcType="VARCHAR"/>
@@ -24,7 +24,7 @@
         <result column="lw_for_article_id" property="lw_for_article_id" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <resultMap id="ReplyBaseMap" type="cn.tycoding.pojo.Reply">
+    <resultMap id="ReplyBaseMap" type="com.liu.article.pojo.Reply">
         <id column="lr_id" property="lr_id" jdbcType="INTEGER"/>
         <result column="lr_name" property="lr_name" jdbcType="VARCHAR"/>
         <result column="lr_date" property="lr_date" jdbcType="VARCHAR"/>
@@ -39,17 +39,18 @@
         insert into
         article(r_author,r_summary,r_content,r_date,r_verify,r_publish,r_status)
         values
-        #{r_author}, #{r_summary}, #{r_content}, #{r_date}, #{r_verify}, #{r_publish}, #{r_status}
+        (#{r_author}, #{r_summary}, #{r_content}, #{r_date}, #{r_verify}, #{r_publish}, #{r_status})
     </insert>
 
     <!--查询(未clean)总数-->
     <select id="selectCount" resultType="int">
-        select count (*) form article where r_status = 0
+        select count(*) from article where r_status = 0
+      
     </select>
 
     <!--查询(已经clean)总数-->
-    <select id="selectCount" resultType="int">
-        select count (*) form article where r_status = 1
+    <select id="selectCount2" resultType="int">
+        select count(*) from article where r_status = 1
     </select>
 
     <!--分页查询-->
@@ -86,7 +87,7 @@
             and r_publish = #{r_publish}
         </if>
         <if test="r_status != null and r_status != ''">
-            and r_statu = #{r_status}
+            and r_status = #{r_status}
         </if>
         <if test="start != null and size != null">
             limit #{start},#{size}
@@ -128,7 +129,7 @@
     </update>
 
     <!-- 保存留言信息 -->
-    <insert id="saveWords" parameterType="cn.tycoding.pojo.Words">
+    <insert id="saveWords" parameterType="com.liu.article.pojo.Words">
         insert into words(
           lw_name,
           lw_date,
@@ -146,7 +147,7 @@
     </insert>
 
     <!-- 保存回复信息 -->
-    <insert id="saveReply" parameterType="cn.tycoding.pojo.Reply">
+    <insert id="saveReply" parameterType="com.liu.article.pojo.Reply">
         insert into reply(
           lr_name,
           lr_date,
@@ -173,7 +174,7 @@
     </select>
 
     <!--查询所有回复信息-->
-    <select id="findByWords" resultMap="WordsBaseMap">
+    <select id="findByReply" resultMap="ReplyBaseMap">
         select * from reply
     </select>
 

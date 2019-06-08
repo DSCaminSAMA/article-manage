@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="<%=basePath%>/static/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="<%=basePath%>/static/layui/css/layui.css"/>
 </head>
-<body>
+<body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo" style="font-size: 17px;"><strong>文章管理系统</strong></div>
@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    </object>
+
     <div class="layui-footer">
         <!-- 底部固定区域 -->
         <strong>© 后台管理系统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---->&nbsp;Create by TyCoding</strong>
